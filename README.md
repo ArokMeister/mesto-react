@@ -1,12 +1,12 @@
-# Getting Started with Create React App
+# Project Mesto with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Данный проект выполнен на базе обучения в Я.Практикум на факультете WEB-разработчика
 
-## Available Scripts
+## Что из себя представляет проект?
 
-In the project directory, you can run:
+Проект предназначен для загрузки фотографий в личную ленту. Фотографии можно просматривать по клику в полноразмерном формате. Понравившиеся фотографии можно отмечать лайками. Реализован профиль пользователя, можно указать свое имя, род деятельности и установить личную аватарку.
 
-### `npm start`
+## Планы на проект
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
