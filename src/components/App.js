@@ -102,9 +102,11 @@ function App() {
       />
       <PopupWithForm
         title={'Вы уверены?'}
+        styleTitle={30}
         name={'remove'}
         btnText={'Да'}
         isOpen={''}
+        onClose={closeAllPopups}
         children={''}
       />
       <ImagePopup 
