@@ -1,10 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
-  const [cardTitle, setCardTitle] = React.useState('')
-  const [cardLink, setCardLink] = React.useState('')
+  const [cardTitle, setCardTitle] = useState('')
+  const [cardLink, setCardLink] = useState('')
 
   function handleChangeTitle(e) {
     setCardTitle(e.target.value)
@@ -33,10 +33,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       children={(
         <>
           <input className="popup__input popup__input-place" type="text" id="place" name="name" 
-          placeholder="Название места" autoComplete="off" required minLength="2" maxLength="30" onChange={handleChangeTitle} />
+          placeholder="Название места" autoComplete="off" required minLength="2" maxLength="30" onChange={handleChangeTitle} value={cardTitle} />
           <span className="popup__error" id="place-error"></span>
           <input className="popup__input popup__input-url" type="url" id="url" name="link" 
-          placeholder="Ссылка на картинку" autoComplete="off" required onChange={handleChangeLink} />
+          placeholder="Ссылка на картинку" autoComplete="off" required onChange={handleChangeLink} value={cardLink} />
           <span className="popup__error" id="url-error"></span>
         </>
       )}

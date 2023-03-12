@@ -1,16 +1,16 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   
-  const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState('');
+  const [about, setAbout] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setName(currentUser.name);
-    setDescription(currentUser.about);
+    setAbout(currentUser.about);
   }, [currentUser])
 
   function handleChangeName(e) {
@@ -18,14 +18,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   function handleChangeDescription(e) {
-    setDescription(e.target.value)
+    setAbout(e.target.value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({
       name,
-      about: description,
+      about
     });
   } 
   
@@ -41,13 +41,31 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         children={(
           <>
             <input 
-              className="popup__input popup__input-name" type="text" id="name" name="name" defaultValue={name}
-              placeholder="Имя" autoComplete="off" required minLength="2" maxLength="40" onChange={handleChangeName} 
+              className="popup__input popup__input-name"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Имя"
+              autoComplete="off"
+              required
+              minLength="2"
+              maxLength="40"
+              value={name || ''}
+              onChange={handleChangeName}
             />
             <span className="popup__error" id="name-error"></span>
             <input 
-              className="popup__input popup__input-job" type="text" id="job" name="about" defaultValue={description}
-              placeholder="О себе" autoComplete="off" required minLength="2" maxLength="200" onChange={handleChangeDescription} 
+              className="popup__input popup__input-job"
+              type="text"
+              id="job"
+              name="about"
+              placeholder="О себе"
+              autoComplete="off"
+              required
+              minLength="2"
+              maxLength="200"
+              value={about || ''}
+              onChange={handleChangeDescription}
             />
             <span className="popup__error" id="job-error"></span>
           </>

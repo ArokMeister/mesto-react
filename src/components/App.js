@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/Api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header.js';
@@ -13,17 +13,17 @@ import DeleteCardPopup from './DeleteCardPopup';
 
 function App() {
 
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [acceptDeletePopup, setAcceptDeletePopup] = React.useState({ isOpen: false, card: null });
-  const [selectedCard, setSelectedCard] = React.useState({ name: null, link: null, isOpen: false });
-  const [error, setError] = React.useState({ errorMessage: null, isOpen: false });
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [acceptDeletePopup, setAcceptDeletePopup] = useState({ isOpen: false, card: null });
+  const [selectedCard, setSelectedCard] = useState({ name: null, link: null, isOpen: false });
+  const [error, setError] = useState({ errorMessage: null, isOpen: false });
 
-  const [cards, setCards] = React.useState([]);
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [cards, setCards] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.getUserData(), api.getCards()])
       .then(([{ name, about, avatar, _id }, cardData]) => {
         setCurrentUser({ name, about, avatar, _id })
@@ -54,7 +54,8 @@ function App() {
     .then(data => {
       setCurrentUser(data)
       closeAllPopups()
-    }).catch(err => handleErrorMessage(err))
+    })
+    .catch(err => handleErrorMessage(err))
   }
 
   function handleUpdateAvatar(avatar) {
@@ -93,15 +94,14 @@ function App() {
     setError({ errorMessage, isOpen: !error.isOpen})
   }
 
-  function handleCloseAllPopups(evt) {
-    const currentPopup = evt.target.closest('.popup');
-    if (evt.target === currentPopup || evt.target.classList.contains('popup__close-button')) {
-      closeAllPopups()
-    }
-  }
-
   function handleAcceptDelete(card) {
     setAcceptDeletePopup({isOpen: true, card})
+  }
+
+  function handleCloseAllPopups(evt) {
+    if (evt.target === evt.currentTarget) {
+      closeAllPopups()
+    }
   }
 
   function closeAllPopups() {
