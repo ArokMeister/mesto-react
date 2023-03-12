@@ -64,9 +64,9 @@ class Api {
       .then(res => this._verifyResponse(res)) 
   }
 
-  setLikes(idCard, method) {
+  setLikes(idCard, isLiked) {
     return fetch(`${this._baseURL}/cards/${idCard}/likes`, {
-      method: method,
+      method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers
     })
       .then(res => this._verifyResponse(res))
